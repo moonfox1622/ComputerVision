@@ -8,7 +8,7 @@ import os
 MAX_FEATURES = 500
 # 配對比率
 GOOD_MATCH_PERCENT = int(MAX_FEATURES*0.2)
-
+count = 0
 
 def load_img():
     print("Load Image.....")
@@ -93,7 +93,7 @@ def drawMatches(img1, kp1, img2, kp2, matches):
         # 將配對的特徵點連線
         cv.line(drawPoints,(int(x1),int(y1)),(int(x2)+cols1,int(y2)),(255,0,0),1)
     cv.imshow("test", drawPoints)
-    cv.imwrite("drawMatches.jpg", drawPoints)
+    cv.imwrite("drawMatches{}.jpg".format(count), drawPoints)
     cv.waitKey(0)
 
 # 找出Homography martix
@@ -237,13 +237,13 @@ def stitchImage(img_1, img_2):
 def main():
     # 取得輸入影像
     img_1, img_2, img_3= load_img()
-    
+    count = 0
     # 進行圖1及圖2的影像拼接
     stitchedImage = stitchImage(img_1, img_2)
     cv.imshow("stitchedImage",stitchedImage)
     cv.imwrite("stitchedImage.jpg", stitchedImage)
     cv.waitKey(0)
-    
+    count = 1
     stitchedImage2 = stitchImage(stitchedImage, img_3)
     cv.imshow("stitchedImage2",stitchedImage2)
     cv.imwrite("stitchedImage2.jpg", stitchedImage2)
